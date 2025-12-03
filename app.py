@@ -1,11 +1,11 @@
 from flask import Flask, render_template, request
-import pandas as pd
+import openpyxl
 import os
 
 app = Flask(__name__)
 
 # =========================================================
-# Load statewide supercharger count
+# Load statewide supercharger count WITHOUT pandas
 # =========================================================
 def load_statewide_supercharger_count():
     excel_path = "supercharger_by_county_summary.xlsx"  # Must be in project root
@@ -15,35 +15,33 @@ def load_statewide_supercharger_count():
         return None
 
     try:
-        df = pd.read_excel(excel_path)
+        wb = openpyxl.load_workbook(excel_path, data_only=True)
+        ws = wb.active
 
-        # Normalize column names
-        df.columns = [str(c).strip().lower() for c in df.columns]
-
-        # County column
-        if "county" not in df.columns:
-            print("⚠ 'County' column missing")
-            return None
-
-        # Find the row where County == "Total"
-        row = df[df["county"].str.lower() == "total"]
-
-        if row.empty:
-            print("⚠ No 'Total' row found")
-            return None
-
-        # Try to find the supercharger count column
+        # Find the header columns
+        county_col = None
         sc_col = None
-        for name in df.columns:
-            if "super" in name or "charger" in name:
-                sc_col = name
-                break
 
-        if not sc_col:
-            print("⚠ No supercharger count column found")
+        for col in range(1, ws.max_column + 1):
+            header = str(ws.cell(row=1, column=col).value).strip().lower()
+            if header == "county":
+                county_col = col
+            if "super" in header or "charger" in header:
+                sc_col = col
+
+        if not county_col or not sc_col:
+            print("⚠ Required columns not found")
             return None
 
-        return int(row[sc_col].iloc[0])
+        # Find the row where county == "total"
+        for row in range(2, ws.max_row + 1):
+            county_val = str(ws.cell(row=row, column=county_col).value).strip().lower()
+            if county_val == "total":
+                sc_value = ws.cell(row=row, column=sc_col).value
+                return int(sc_value)
+
+        print("⚠ Row 'Total' not found")
+        return None
 
     except Exception as e:
         print("⚠ Error loading statewide count:", e)
@@ -74,9 +72,6 @@ def statewide_forecast(x):
     return ev_reg, adopt
 
 
-# =========================================================
-# UI Route
-# =========================================================
 @app.route("/", methods=["GET", "POST"])
 def index():
     result = None
