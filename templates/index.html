@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Washington Statewide EV Forecast</title>
+    <style>
+        body { font-family: Arial; margin: 20px; }
+        .container { max-width: 900px; margin: auto; }
+        .card { border: 1px solid #ccc; padding: 16px; border-radius: 8px; margin-top: 20px; }
+        img { max-width: 100%; margin-top: 12px; border-radius: 8px; }
+        .error { color: red; font-weight: bold; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Washington Statewide EV Forecast</h1>
+
+    <div class="card">
+        <form method="POST">
+            <label>Enter Supercharger Points:</label><br>
+            <input type="number" name="superchargers" required>
+            <button type="submit">Calculate</button>
+        </form>
+
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
+
+        {% if result %}
+            <hr>
+            <h3>Results for {{ result.x }} Supercharger Points</h3>
+            <p><strong>EV Registration:</strong> {{ result.ev_reg_str }}</p>
+            <p><strong>Adoption Rate:</strong> {{ result.adopt_pct_str }}%</p>
+        {% endif %}
+    </div>
+
+    <div class="card">
+        <h2>Statewide Supercharger & Population Map</h2>
+
+        {% if statewide_sc %}
+            <p><strong>Existing Superchargers Statewide:</strong> {{ statewide_sc }}</p>
+        {% endif %}
+
+        <img src="{{ url_for('static', filename='img/WA_supercharger_population_map_large.png') }}">
+    </div>
+
+    <div class="card">
+        <h2>Statewide Forecast Curve</h2>
+        <img src="{{ url_for('static', filename='img/TOTAL.png') }}">
+    </div>
+
+</div>
+</body>
+</html>
