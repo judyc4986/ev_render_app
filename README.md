@@ -34,6 +34,8 @@ This repository contains the **Statewide Forecast Tool (`ev_render_app`)**, whic
 ## 🌐 Access the Full EV Growth Strategy Hub  
 👉 **Tesla EV Growth Strategy · Washington EV Hub**  
 https://home-page-ev.onrender.com/
+then Statewide Forecast
+https://ev-forecast.onrender.com/
 
 ---
 
