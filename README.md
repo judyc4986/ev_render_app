@@ -90,7 +90,7 @@ ev_render_app/
 ## ▶️ Run Locally
 
 ```bash
-git clone https://github.com/<yourname>/ev_render_app.git
+git clone https://github.com/judyc4986/ev_render_app.git
 cd ev_render_app
 pip install -r requirements.txt
 flask run
