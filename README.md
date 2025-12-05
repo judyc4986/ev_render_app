@@ -1,4 +1,13 @@
-# 🚗⚡ Washington Statewide EV Forecast Tool  
+# 🚗⚡ Washington Statewide EV Forecast Tool 
+
+## 🌐 Access the Full EV Growth Strategy Hub  
+👉 **Tesla EV Growth Strategy · Washington EV Hub**  
+https://home-page-ev.onrender.com/
+then Statewide Forecast
+https://ev-forecast.onrender.com/
+
+---
+
 ### Part of the *Tesla EV Growth Strategy · Washington EV Hub*
 
 This repository contains the **Statewide Forecast Tool (`ev_render_app`)**, which powers EV forecast modeling for Washington state—integrated into the overall site architecture shown below.
@@ -31,13 +40,6 @@ This repository contains the **Statewide Forecast Tool (`ev_render_app`)**, whic
 
 ---
 
-## 🌐 Access the Full EV Growth Strategy Hub  
-👉 **Tesla EV Growth Strategy · Washington EV Hub**  
-https://home-page-ev.onrender.com/
-then Statewide Forecast
-https://ev-forecast.onrender.com/
-
----
 
 ## 🔥 Why This Tool Is Useful
 
