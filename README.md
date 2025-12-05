@@ -75,7 +75,6 @@ ev_render_app/
 ├── app.py                       # Main Flask backend
 ├── templates/
 │     ├── index.html             # Input page
-│     └── results.html           # Forecast results page
 │
 ├── static/
 │     ├── map.png                # Statewide EV / charger geographic visualization
